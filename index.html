@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Screen Play Studio</title>
+        <script type="importmap">
+            {
+                "imports": {
+                    "three": "https://cdn.jsdelivr.net/npm/three@v0.149.0/build/three.module.js",
+                    "three/addons/": "https://cdn.jsdelivr.net/npm/three@v0.149.0/examples/jsm/"
+                }
+            }
+        </script>
+        <script type="module" src="./custom.js"></script>
+        <script type="text/javascript">
+            window.omnisend = window.omnisend || [];
+            omnisend.push(["brandID", "68d2b47501a124e3c12c2c24"]);
+            omnisend.push(["track", "$pageViewed"]);
+            !(function () {
+                var e = document.createElement("script");
+                ((e.type = "text/javascript"),
+                    (e.async = !0),
+                    (e.src = "https://omnisnippet1.com/inshop/launcher-v2.js"));
+                var t = document.getElementsByTagName("script")[0];
+                t.parentNode.insertBefore(e, t);
+            })();
+        </script>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                background: #000000;
+                overflow-x: hidden;
+                position: relative;
+                width: 100vw;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+            }
+
+            #starfield {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+                pointer-events: none;
+            }
+
+            .content {
+                position: relative;
+                z-index: 2;
+                width: 100%;
+                flex: 1;
+                display: flex;
+                align-items: center;
+            }
+
+            .star {
+                position: absolute;
+                background: white;
+                border-radius: 50%;
+                animation: twinkle linear infinite;
+            }
+
+            @keyframes twinkle {
+                0%,
+                100% {
+                    opacity: 0.3;
+                }
+                50% {
+                    opacity: 1;
+                }
+            }
+
+            #logo {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 999;
+                opacity: 0.85;
+                max-width: 100px;
+                height: auto;
+            }
+
+            .video-container {
+                display: flex;
+                gap: 20px;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                padding: 20px;
+            }
+
+            .video-wrapper {
+                flex: 1;
+                max-width: 600px;
+            }
+
+            video {
+                width: 100%;
+                height: auto;
+                border-radius: 8px;
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            }
+
+            @media (max-width: 768px) {
+                .video-container {
+                    flex-direction: column;
+                }
+
+                .video-wrapper {
+                    max-width: 100%;
+                }
+            }
+
+            .title {
+                position: relative;
+                font-family: "Comic Sans MS", "Comic Sans", cursive;
+                font-size: 32px;
+                color: #a0522d;
+                text-align: center;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+                z-index: 10;
+                padding: 200px 20px 100px 20px;
+                margin: 0;
+                pointer-events: none;
+            }
+
+            @media (max-width: 768px) {
+                .title {
+                    font-size: 32px;
+                }
+            }
+
+            .footer {
+                position: relative;
+                z-index: 10;
+                text-align: center;
+                padding: 30px 20px;
+                font-family: "Times New Roman", Times, serif;
+                color: white;
+            }
+
+            .footer-title {
+                font-size: 28px;
+                margin-bottom: 15px;
+            }
+
+            .footer-links {
+                display: flex;
+                gap: 20px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .footer-links a {
+                color: white;
+                text-decoration: none;
+                font-size: 16px;
+            }
+
+            .footer-links a:hover {
+                text-decoration: underline;
+            }
+
+            @media (max-width: 768px) {
+                .footer-title {
+                    font-size: 22px;
+                }
+
+                .footer-links {
+                    gap: 15px;
+                }
+            }
+
+            .cta {
+                position: relative;
+                z-index: 10;
+                text-align: center;
+                padding: 20px;
+                font-family: Times, serif;
+                color: white;
+                font-size: 30px;
+            }
+
+            .cta a {
+                color: white;
+                text-decoration: underline;
+            }
+
+            .cta a:hover {
+                opacity: 0.8;
+            }
+
+            @media (max-width: 768px) {
+                .cta {
+                    font-size: 30px;
+                }
+            }
+
+            .profile-info {
+                text-align: center;
+                padding: 15px;
+                font-family: "Times New Roman", Times, serif;
+                color: white;
+            }
+
+            .profile-info h3 {
+                font-size: 24px;
+                margin-bottom: 5px;
+            }
+
+            .profile-info p {
+                font-size: 16px;
+                margin-bottom: 10px;
+                color: #cccccc;
+            }
+
+            .profile-info a {
+                color: white;
+                text-decoration: none;
+                display: block;
+                margin: 5px 0;
+                font-size: 16px;
+            }
+
+            .profile-info a:hover {
+                text-decoration: underline;
+            }
+
+            #three-container {
+                margin-top: 0pt;
+                margin-left: auto;
+                margin-right: auto;
+                width: 100%;
+                margin-bottom: -200pt;
+                height: 500px;
+                position: relative;
+                z-index: 5;
+            }
+
+            @media only screen and (min-width: 992px) {
+                #three-container {
+                    width: 30%;
+                    height: 600px;
+                    margin-bottom: -200pt;
+                }
+            }
+
+            @media only screen and (min-width: 768px) {
+                #three-container {
+                    width: 50%;
+                    height: 500px;
+                    margin-bottom: -200pt;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .profile-info h3 {
+                    font-size: 20px;
+                }
+
+                .profile-info p,
+                .profile-info a {
+                    font-size: 14px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <img id="logo" src="logo.png" alt="Logo" />
+        <div id="starfield"></div>
+
+        <div id="three-container"></div>
+
+        <h1 class="title">
+            „Together we want to combine the interactive art of games with the
+            visual storytelling of film.“
+        </h1>
+        <div class="cta">
+            Follow us on
+            <a href="https://www.instagram.com/screenplaygames" target="_blank"
+                >Instagram</a
+            >
+        </div>
+        <div class="cta">
+            Join our newsletter to always be up to date
+            <div id="omnisend-embedded-v2-68d2b5422a73b78f671a2c99"></div>
+        </div>
+        <div class="content">
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <video autoplay loop muted playsinline>
+                        <source src="felix_1_no_audio.webm" type="video/webm" />
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="profile-info">
+                        <h3>Felix</h3>
+                        <p>Programmer, Game Designer, Project Management</p>
+                        <a href="mailto:felix@screenplay.studio"
+                            >felix@screenplay.studio</a
+                        >
+                        <a
+                            href="https://www.linkedin.com/in/felix-baral-weber-a3453a146/"
+                            target="_blank"
+                            >LinkedIn</a
+                        >
+                        <a
+                            href="https://www.instagram.com/felixbaral"
+                            target="_blank"
+                            >Instagram</a
+                        >
+                    </div>
+                </div>
+                <div class="video-wrapper">
+                    <video autoplay loop muted playsinline>
+                        <source
+                            src="sophie_2_no_audio.webm"
+                            type="video/webm"
+                        />
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="profile-info">
+                        <h3>Sophie</h3>
+                        <p>Director, Screenwriter, Actress</p>
+                        <a href="mailto:sophie@screenplay.studio"
+                            >sophie@screenplay.studio</a
+                        >
+                        <a
+                            href="https://www.instagram.com/sophiedefrenne/"
+                            target="_blank"
+                            >Instagram</a
+                        >
+                        <a
+                            href="https://sophiedefrenne.weebly.com/"
+                            target="_blank"
+                            >Website</a
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-title">Screen Play Games</div>
+            <div class="footer-links">
+                <a
+                    href="https://www.instagram.com/screenplaygames"
+                    target="_blank"
+                    >Instagram</a
+                >
+                <a href="#impressum">Impressum</a>
+                <a href="#presskit">Presskit</a>
+            </div>
+        </footer>
+        <script>
+            // Create animated starfield background
+            const starfield = document.getElementById("starfield");
+            const numStars = 500;
+
+            function createStar() {
+                const star = document.createElement("div");
+                star.className = "star";
+
+                // Random position
+                star.style.left = Math.random() * 100 + "%";
+                star.style.top = Math.random() * 100 + "%";
+
+                // Random size (1-3px)
+                const size = Math.random() * 2 + 1;
+                star.style.width = size + "px";
+                star.style.height = size + "px";
+
+                // Random animation duration for twinkling
+                star.style.animationDuration = Math.random() * 3 + 2 + "s";
+
+                // Random animation delay
+                star.style.animationDelay = Math.random() * 3 + "s";
+
+                return star;
+            }
+
+            // Generate stars
+            for (let i = 0; i < numStars; i++) {
+                starfield.appendChild(createStar());
+            }
+
+            // Set video playback speed to half (0.5x)
+            const videos = document.querySelectorAll("video");
+            videos.forEach((video) => {
+                video.playbackRate = 0.5;
+            });
+        </script>
+    </body>
+</html>
