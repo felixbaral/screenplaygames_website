@@ -28,7 +28,9 @@
         ></script>
     </head>
     <body>
-        <img id="cornerbug" src="logo.png" alt="Logo" />
+        <a href="index.html"
+            ><img id="cornerbug" src="logo.png" alt="Logo"
+        /></a>
         <div id="starfield"></div>
 
         <model-viewer
@@ -41,6 +43,7 @@
             camera-orbit="90deg 90deg 2m"
             min-camera-orbit="70deg 80deg auto"
             max-camera-orbit="110deg 100deg auto"
+            pan-y="pan-x"
         >
         </model-viewer>
 
@@ -86,6 +89,7 @@
             min-camera-orbit="0deg 30deg auto"
             max-camera-orbit="360deg 95deg auto"
             shadow-softness="1"
+            pan-y="pan-x"
         >
         </model-viewer>
 
@@ -153,7 +157,11 @@
         </div>
 
         <footer class="footer">
-            <div class="footer-title">Screen Play Games</div>
+            <div class="footer-title">
+                <a href="index.html" style="color: white; text-decoration: none"
+                    >Screen Play Games</a
+                >
+            </div>
             <div class="footer-links">
                 <a
                     href="https://www.instagram.com/screenplaygames"
