@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Impressum - Screen Play Games</title>
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <img id="cornerbug" src="logo.png" alt="Logo" />
+        <div id="starfield"></div>
+
+        <div style="position: relative; z-index: 10; max-width: 800px; margin: 100px auto; padding: 40px; background-color: rgba(0, 0, 0, 0.8); color: white; font-family: 'Times New Roman', Times, serif;">
+            <h1 style="font-size: 36px; margin-bottom: 30px; text-align: center;">Impressum</h1>
+
+            <h2 style="font-size: 24px; margin-top: 30px; margin-bottom: 15px;">Angaben gemäß § 5 TMG</h2>
+            <p style="line-height: 1.6; margin-bottom: 20px;">
+                Screen Play Games<br />
+                [Your Address]<br />
+                [Postal Code] [City]<br />
+                Germany
+            </p>
+
+            <h2 style="font-size: 24px; margin-top: 30px; margin-bottom: 15px;">Kontakt</h2>
+            <p style="line-height: 1.6; margin-bottom: 20px;">
+                E-Mail: <a href="mailto:info@screenplay.studio" style="color: #ffd700;">info@screenplay.studio</a>
+            </p>
+
+            <h2 style="font-size: 24px; margin-top: 30px; margin-bottom: 15px;">Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
+            <p style="line-height: 1.6; margin-bottom: 20px;">
+                [Your Name]<br />
+                [Your Address]
+            </p>
+
+            <p style="margin-top: 40px; text-align: center;">
+                <a href="index.html" style="color: white; text-decoration: underline;">← Back to Home</a>
+            </p>
+        </div>
+
+        <script>
+            // Create animated starfield background
+            const starfield = document.getElementById("starfield");
+            const numStars = 500;
+
+            function createStar() {
+                const star = document.createElement("div");
+                star.className = "star";
+
+                star.style.left = Math.random() * 100 + "%";
+                star.style.top = Math.random() * 100 + "%";
+
+                const size = Math.random() * 2 + 1;
+                star.style.width = size + "px";
+                star.style.height = size + "px";
+
+                star.style.animationDuration = Math.random() * 3 + 2 + "s";
+                star.style.animationDelay = Math.random() * 3 + "s";
+
+                return star;
+            }
+
+            for (let i = 0; i < numStars; i++) {
+                starfield.appendChild(createStar());
+            }
+        </script>
+    </body>
+</html>

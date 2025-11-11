@@ -4,14 +4,29 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Screen Play Studio</title>
-        <script type="importmap">
-            {
-                "imports": {
-                    "three": "https://cdn.jsdelivr.net/npm/three@v0.149.0/build/three.module.js",
-                    "three/addons/": "https://cdn.jsdelivr.net/npm/three@v0.149.0/examples/jsm/"
-                }
-            }
-        </script>
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="favicon-16x16.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="apple-touch-icon.png"
+        />
+        <link rel="stylesheet" href="styles.css" />
+        <script
+            type="module"
+            src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"
+        ></script>
+
         <script type="module" src="./custom.js"></script>
         <script type="text/javascript">
             window.omnisend = window.omnisend || [];
@@ -26,275 +41,74 @@
                 t.parentNode.insertBefore(e, t);
             })();
         </script>
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-
-            body {
-                background: #000000;
-                overflow-x: hidden;
-                position: relative;
-                width: 100vw;
-                min-height: 100vh;
-                display: flex;
-                flex-direction: column;
-            }
-
-            #starfield {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                z-index: -1;
-                pointer-events: none;
-            }
-
-            .content {
-                position: relative;
-                z-index: 2;
-                width: 100%;
-                flex: 1;
-                display: flex;
-                align-items: center;
-            }
-
-            .star {
-                position: absolute;
-                background: white;
-                border-radius: 50%;
-                animation: twinkle linear infinite;
-            }
-
-            @keyframes twinkle {
-                0%,
-                100% {
-                    opacity: 0.3;
-                }
-                50% {
-                    opacity: 1;
-                }
-            }
-
-            #logo {
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                z-index: 999;
-                opacity: 0.85;
-                max-width: 100px;
-                height: auto;
-            }
-
-            .video-container {
-                display: flex;
-                gap: 20px;
-                justify-content: center;
-                align-items: center;
-                width: 100%;
-                height: 100%;
-                padding: 20px;
-            }
-
-            .video-wrapper {
-                flex: 1;
-                max-width: 600px;
-            }
-
-            video {
-                width: 100%;
-                height: auto;
-                border-radius: 8px;
-                box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-            }
-
-            @media (max-width: 768px) {
-                .video-container {
-                    flex-direction: column;
-                }
-
-                .video-wrapper {
-                    max-width: 100%;
-                }
-            }
-
-            .title {
-                position: relative;
-                font-family: "Comic Sans MS", "Comic Sans", cursive;
-                font-size: 32px;
-                color: #a0522d;
-                text-align: center;
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-                z-index: 10;
-                padding: 200px 20px 100px 20px;
-                margin: 0;
-                pointer-events: none;
-            }
-
-            @media (max-width: 768px) {
-                .title {
-                    font-size: 32px;
-                }
-            }
-
-            .footer {
-                position: relative;
-                z-index: 10;
-                text-align: center;
-                padding: 30px 20px;
-                font-family: "Times New Roman", Times, serif;
-                color: white;
-            }
-
-            .footer-title {
-                font-size: 28px;
-                margin-bottom: 15px;
-            }
-
-            .footer-links {
-                display: flex;
-                gap: 20px;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-
-            .footer-links a {
-                color: white;
-                text-decoration: none;
-                font-size: 16px;
-            }
-
-            .footer-links a:hover {
-                text-decoration: underline;
-            }
-
-            @media (max-width: 768px) {
-                .footer-title {
-                    font-size: 22px;
-                }
-
-                .footer-links {
-                    gap: 15px;
-                }
-            }
-
-            .cta {
-                position: relative;
-                z-index: 10;
-                text-align: center;
-                padding: 20px;
-                font-family: Times, serif;
-                color: white;
-                font-size: 30px;
-            }
-
-            .cta a {
-                color: white;
-                text-decoration: underline;
-            }
-
-            .cta a:hover {
-                opacity: 0.8;
-            }
-
-            @media (max-width: 768px) {
-                .cta {
-                    font-size: 30px;
-                }
-            }
-
-            .profile-info {
-                text-align: center;
-                padding: 15px;
-                font-family: "Times New Roman", Times, serif;
-                color: white;
-            }
-
-            .profile-info h3 {
-                font-size: 24px;
-                margin-bottom: 5px;
-            }
-
-            .profile-info p {
-                font-size: 16px;
-                margin-bottom: 10px;
-                color: #cccccc;
-            }
-
-            .profile-info a {
-                color: white;
-                text-decoration: none;
-                display: block;
-                margin: 5px 0;
-                font-size: 16px;
-            }
-
-            .profile-info a:hover {
-                text-decoration: underline;
-            }
-
-            #three-container {
-                margin-top: 0pt;
-                margin-left: auto;
-                margin-right: auto;
-                width: 100%;
-                margin-bottom: -200pt;
-                height: 500px;
-                position: relative;
-                z-index: 5;
-            }
-
-            @media only screen and (min-width: 992px) {
-                #three-container {
-                    width: 30%;
-                    height: 600px;
-                    margin-bottom: -200pt;
-                }
-            }
-
-            @media only screen and (min-width: 768px) {
-                #three-container {
-                    width: 50%;
-                    height: 500px;
-                    margin-bottom: -200pt;
-                }
-            }
-
-            @media (max-width: 768px) {
-                .profile-info h3 {
-                    font-size: 20px;
-                }
-
-                .profile-info p,
-                .profile-info a {
-                    font-size: 14px;
-                }
-            }
-        </style>
     </head>
     <body>
-        <img id="logo" src="logo.png" alt="Logo" />
+        <img id="cornerbug" src="logo.png" alt="Logo" />
         <div id="starfield"></div>
 
-        <div id="three-container"></div>
+        <model-viewer
+            src="tape.glb"
+            alt="avatar"
+            class="model_container"
+            shadow-intensity="1"
+            camera-controls
+            disable-zoom
+            camera-orbit="90deg 90deg 2m"
+            min-camera-orbit="70deg 80deg auto"
+            max-camera-orbit="110deg 100deg auto"
+        >
+        </model-viewer>
 
-        <h1 class="title">
-            „Together we want to combine the interactive art of games with the
-            visual storytelling of film.“
-        </h1>
-        <div class="cta">
-            Follow us on
-            <a href="https://www.instagram.com/screenplaygames" target="_blank"
-                >Instagram</a
-            >
+        <div class="banner">
+            <div class="banner-content">
+                <img
+                    src="logo_title.png"
+                    alt="Screen Play Games"
+                    class="banner-logo"
+                />
+                We are working on <em>"Burning Bridges"</em>. An interactive
+                moviegame where you go through your parents old home video to
+                uncover a family secret.
+
+                <br />
+                <br />
+
+                <div class="cta">
+                    Follow us on
+                    <a
+                        href="https://www.instagram.com/screenplaygames"
+                        target="_blank"
+                        >Instagram</a
+                    >
+                </div>
+                <div class="cta">
+                    or join our newsletter to always be up to date!
+                    <div
+                        id="omnisend-embedded-v2-68d2b5422a73b78f671a2c99"
+                    ></div>
+                </div>
+            </div>
         </div>
-        <div class="cta">
-            Join our newsletter to always be up to date
-            <div id="omnisend-embedded-v2-68d2b5422a73b78f671a2c99"></div>
-        </div>
+
+        <model-viewer
+            src="camera.glb"
+            alt="avatar"
+            class="model_container"
+            shadow-intensity="1"
+            camera-controls
+            disable-zoom
+            camera-orbit="90deg 90deg 2m"
+            min-camera-orbit="0deg 30deg auto"
+            max-camera-orbit="360deg 95deg auto"
+            shadow-softness="1"
+        >
+        </model-viewer>
+
+        <h2 class="title">
+            „Together we combine the interactive art of games with the visual
+            storytelling of film.“
+        </h2>
+
         <div class="content">
             <div class="video-container">
                 <div class="video-wrapper">
@@ -347,6 +161,10 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="press-start">
+            <img src="press_start_logos.png" alt="Press Start" />
         </div>
 
         <footer class="footer">
